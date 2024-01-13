@@ -1,73 +1,93 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import Header from "../components/Header.astro";
 interface Props {
-  title: string;
-  description?: string;
+    title: string;
+    description?: string;
 }
 
-const {
-  title,
-  description = "A simple Shop built in Astro using View Transitions and TailwindCSS",
-} = Astro.props;
+const { title, description = "REST Countries API" } = Astro.props;
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content={description} />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
 
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} - Astro Transitions Shop</title>
-    <ViewTransitions />
-  </head>
-  <body>
-    <main
-      class="relative max-w-6xl min-h-screen mx-auto py-6 lg:pt-10 px-4 pb-20"
-    >
-      <slot />
-    </main>
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap"
+            rel="stylesheet"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        <ViewTransitions />
+    </head>
+    <body>
+        <Header />
+        <slot />
 
-    <style is:global>
-      :root {
-      }
-      body {
-        background-color: theme(colors.gray.50);
-      }
-      .animate-in {
-        animation: animate-in 0.5s ease-in-out;
-      }
-      /* Firefox */
-      * {
-        scrollbar-width: auto;
-        scrollbar-color: #c7c7c7 #ededed;
-      }
+        <style is:global>
+            :root {
+                --white: hsl(0, 0%, 100%);
+                --light-mode-bg: hsl(0, 0%, 98%);
+                --input: hsl(0, 0%, 52%);
+                --light-mode-text: hsl(200, 15%, 8%);
+                --dark-mode-bg: hsl(207, 26%, 17%);
+                --dark-mode-elements: hsl(209, 23%, 22%);
+            }
 
-      /* Chrome, Edge, and Safari */
-      *::-webkit-scrollbar {
-        width: 15px;
-      }
+            /* semantic color variables for this project */
+            :root {
+                --color-text: var(--light-mode-text);
+                --color-bg: var(--light-mode-bg);
+                --color-input: var(--input);
+                --color-elements: var(--white);
+            }
 
-      *::-webkit-scrollbar-track {
-        background: #ededed;
-      }
+            :root.dark-theme {
+                --color-text: var(--white);
+                --color-bg: var(--dark-mode-bg);
+                --color-input: var(--white);
+                --color-elements: var(--dark-mode-elements);
+            }
 
-      *::-webkit-scrollbar-thumb {
-        background-color: #c7c7c7;
-        border-radius: 5px;
-        border: 2px solid #ffffff;
-      }
-      @keyframes animate-in {
-        0% {
-          opacity: 0;
-          transform: translateY(1rem);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-    </style>
-  </body>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                min-height: 100vh;
+                font-family: "Nunito Sans", sans-serif;
+                font-size: 14px;
+                text-rendering: optimizeLegibility;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                background-color: var(--color-bg);
+            }
+
+            input,
+            button {
+                font-family: inherit;
+                color: inherit;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            ul {
+                list-style: none;
+            }
+        </style>
+    </body>
 </html>

@@ -1,17 +1,67 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { products } from "../data";
-import ProductCard from "../components/ProductCard.astro";
+import { getAllCountries } from "@api/countries";
+import CountryCard from "@components/CountryCard.astro";
+
+const countries = await getAllCountries();
 ---
 
-<Layout title="Shop">
-    <div class="flex gap-3 items-end">
-        <h1 class="text-4xl font-bold">Astro Shop</h1>
-    </div>
-    <h3 class="text-xl text-gray-500">
-        Take a look in our products, feel free to buy some
-    </h3>
-    <div class="flex flex-wrap justify-center sm:justify-normal gap-4 py-8">
-        {products.map((product) => <ProductCard {product} />)}
-    </div>
+<Layout title="REST Countries API">
+    <main>
+        <div class="flex">
+            <!-- <Search  /> -->
+            <!-- <Filter /> -->
+        </div>
+
+        <div class="cards-grid">
+            {
+                countries ? (
+                    countries?.map((country: any) => (
+                        <CountryCard country={country} />
+                    ))
+                ) : (
+                    <h4 class="failed">
+                        Sorry, an error occured. Failed to fetch countries. Try
+                        again.
+                    </h4>
+                )
+            }
+        </div>
+
+        <!-- <div class="loading">
+            Doing a quick sprint around world... &#9992;
+         </div> -->
+    </main>
 </Layout>
+
+<style is:global>
+    main {
+        padding-inline: 6vw;
+        padding-block: max(3vw, 1.4rem);
+        margin-inline: auto;
+        background-color: var(--color-bg);
+    }
+
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+        margin-bottom: max(3vw, 1.4rem);
+    }
+
+    .loading {
+        color: var(--color-text);
+        font-size: clamp(1.1rem, 4.8vw - 1rem, 2rem);
+        text-align: center;
+        margin-top: 4rem;
+    }
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+        gap: 4rem;
+    }
+    .failed {
+        text-align: center;
+    }
+</style>
