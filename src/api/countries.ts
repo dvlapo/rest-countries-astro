@@ -5,7 +5,7 @@ export async function getAllCountries() {
 
         return countries;
     } catch (error) {
-        // console.log(error);
+        // throw new Error("Something went wrong");
     }
 }
 
@@ -18,6 +18,6 @@ export async function getCountryInfo(countryName: string) {
 
         return country[0];
     } catch (error) {
-        // console.log(error);
+        // throw new Error("Something went wrong");
     }
 }

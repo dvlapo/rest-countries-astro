@@ -6,7 +6,7 @@ import CountryCard from "@components/CountryCard.astro";
 const countries = await getAllCountries();
 ---
 
-<Layout title="REST Countries API">
+<Layout title="REST Countries API" hasHeader={true}>
     <main>
         <div class="flex">
             <!-- <Search  /> -->
@@ -20,17 +20,10 @@ const countries = await getAllCountries();
                         <CountryCard country={country} />
                     ))
                 ) : (
-                    <h4 class="failed">
-                        Sorry, an error occured. Failed to fetch countries. Try
-                        again.
-                    </h4>
+                    <p class="loading">Something went wrong. Try again.</p>
                 )
             }
         </div>
-
-        <!-- <div class="loading">
-            Doing a quick sprint around world... &#9992;
-         </div> -->
     </main>
 </Layout>
 

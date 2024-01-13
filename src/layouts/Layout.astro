@@ -4,12 +4,13 @@ import Header from "../components/Header.astro";
 interface Props {
     title: string;
     description?: string;
+    hasHeader?: boolean;
 }
 
-const { title, description = "REST Countries API" } = Astro.props;
+const { title, description = "REST Countries API", hasHeader } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="dark-theme">
     <head>
         <meta charset="UTF-8" />
         <meta name="description" content={description} />
@@ -28,7 +29,7 @@ const { title, description = "REST Countries API" } = Astro.props;
         <ViewTransitions />
     </head>
     <body>
-        <Header />
+        {hasHeader && <Header />}
         <slot />
 
         <style is:global>

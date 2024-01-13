@@ -19,7 +19,7 @@ const country = await getCountryInfo(slug);
 
 <Layout title={`REST Countries - ${slug}`}>
     <div class="container">
-        <a class="back-btn" href="/"> back</a>
+        <button class="back-btn"> back</button>
         <div class="flex">
             <div
                 class="flag-holder"
@@ -32,8 +32,7 @@ const country = await getCountryInfo(slug);
                 <div class="flex-list">
                     <ul>
                         <li class="list">
-                            Native name:
-
+                            Native name
                             <span>{country.name.common}</span>
                         </li>
                         <li>
@@ -72,20 +71,19 @@ const country = await getCountryInfo(slug);
                         </li>
                     </ul>
                 </div>
-                <div class="flex-links">
+                <!-- <div class="flex-links">
                     <p>Border Countries:</p>
-                    <!-- <div class="links">
-                <a
-                >
-                   {border}
-                </a>
-             </div> -->
-                    <!-- <div>Nil.</div> -->
-                </div>
+                </div> -->
             </article>
         </div>
     </div>
 </Layout>
+
+<script>
+    document.querySelector(".back-btn")?.addEventListener("click", () => {
+        history.back();
+    });
+</script>
 
 <style is:global>
     .container {
