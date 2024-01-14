@@ -1,0 +1,82 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getAllCountries } from "@api/countries";
+import CountryCard from "@components/CountryCard.astro";
+
+export async function getStaticPaths({ paginate }: any) {
+    const countries = await getAllCountries();
+    return paginate(countries, { pageSize: 9 });
+}
+
+const { page }: any = Astro.props;
+---
+
+<Layout title="REST Countries API" hasHeader={true}>
+    <main>
+        <div class="cards-grid">
+            {
+                page.data ? (
+                    page.data?.map((country: any) => (
+                        <CountryCard country={country} />
+                    ))
+                ) : (
+                    <p class="loading">Something went wrong. Try again.</p>
+                )
+            }
+        </div>
+        <section class="flex">
+            {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
+            {
+                page.url.next ? (
+                    <a href={page.url.next} class="next">
+                        Next
+                    </a>
+                ) : null
+            }
+        </section>
+    </main>
+</Layout>
+
+<style is:global>
+    main {
+        padding-inline: 6vw;
+        padding-block: max(3vw, 1.4rem);
+        margin-inline: auto;
+        background-color: var(--color-bg);
+    }
+
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+        margin-bottom: max(3vw, 1.4rem);
+        margin-top: 2rem;
+    }
+
+    .flex a {
+        color: var(--color-text);
+        background: var(--color-elements);
+        padding: 0.5em 1em;
+        border-radius: 4px;
+    }
+
+    .flex a.next {
+        margin-left: auto;
+    }
+
+    .loading {
+        color: var(--color-text);
+        font-size: clamp(1.1rem, 4.8vw - 1rem, 2rem);
+        text-align: center;
+        margin-top: 4rem;
+    }
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+        gap: 4rem;
+    }
+    .failed {
+        text-align: center;
+    }
+</style>

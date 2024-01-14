@@ -1,7 +1,7 @@
 ---
-import { getAllCountries, getCountryInfo } from "../../../api/countries";
+import { getAllCountries, getCountryInfo } from "@api/countries";
 import { getObjectEntries } from "../../../utils";
-import Layout from "../../../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
     const countries = await getAllCountries();
@@ -19,21 +19,21 @@ const country = await getCountryInfo(slug);
 
 <Layout title={`REST Countries - ${slug}`}>
     <div class="container">
-        <button class="back-btn"> back</button>
+        <button class="back-btn" onclick="history.back()">back</button>
         <div class="flex">
             <div
                 class="flag-holder"
-                transition:name={`${country.name.common} flag`}
+                transition:name={`${country.name?.common} flag`}
             >
                 <img src={country.flags.svg} alt="" />
             </div>
             <article>
-                <h1>{country.name.common}</h1>
+                <h1>{country.name?.common}</h1>
                 <div class="flex-list">
                     <ul>
                         <li class="list">
                             Native name
-                            <span>{country.name.common}</span>
+                            <span>{country.name?.common}</span>
                         </li>
                         <li>
                             Population:
@@ -57,7 +57,7 @@ const country = await getCountryInfo(slug);
                             Currencies:
                             {
                                 getObjectEntries(country.currencies).map(
-                                    (curr) => <span>{curr.value.name}</span>
+                                    (curr) => <span>{curr.value?.name}</span>
                                 )
                             }
                         </li>
@@ -71,19 +71,10 @@ const country = await getCountryInfo(slug);
                         </li>
                     </ul>
                 </div>
-                <!-- <div class="flex-links">
-                    <p>Border Countries:</p>
-                </div> -->
             </article>
         </div>
     </div>
 </Layout>
-
-<script>
-    document.querySelector(".back-btn")?.addEventListener("click", () => {
-        history.back();
-    });
-</script>
 
 <style is:global>
     .container {
