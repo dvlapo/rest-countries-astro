@@ -1,12 +1,12 @@
 ---
 import { getAllCountries, getCountryInfo } from "@api/countries";
-import { getObjectEntries } from "../../../utils";
+// import { getObjectEntries } from "../../../utils";
 import Layout from "@layouts/Layout.astro";
 
 export async function getStaticPaths() {
     const countries = await getAllCountries();
 
-    return countries.map((country) => {
+    return countries.map((country: any) => {
         return {
             params: { slug: country.name },
         };
