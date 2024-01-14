@@ -53,22 +53,28 @@ const country = await getCountryInfo(slug);
                         <li>
                             Top Level Domain: <span>{country.tld}</span>
                         </li>
-                        <li class="list">
+                        <!-- <li class="list">
                             Currencies:
                             {
-                                getObjectEntries(country.currencies).map(
-                                    (curr) => <span>{curr.value?.name}</span>
-                                )
+                                getObjectEntries(country.currencies)
+                                    ? getObjectEntries(country.currencies)?.map(
+                                          (curr) => (
+                                              <span>{curr.value?.name}</span>
+                                          )
+                                      )
+                                    : null
                             }
-                        </li>
-                        <li class="list">
+                        </li> -->
+                        <!-- <li class="list">
                             Languages:
                             {
-                                getObjectEntries(country.languages).map(
-                                    (lang) => <span>{lang.value}</span>
-                                )
+                                getObjectEntries(country.languages)
+                                    ? getObjectEntries(country.languages)?.map(
+                                          (lang) => <span>{lang.value}</span>
+                                      )
+                                    : null
                             }
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </article>

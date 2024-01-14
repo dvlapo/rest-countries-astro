@@ -1,8 +1,10 @@
-function getObjectEntries(obj: any): { key: string; value: any }[] {
+function getObjectEntries(obj: {}): { key: string; value: any }[] {
     const arr = [];
 
     for (const [key, value] of Object.entries(obj)) {
-        arr.push({ key: key, value: value });
+        if (key && value) {
+            arr.push({ key: key, value: value });
+        }
     }
 
     return arr;
